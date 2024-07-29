@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 public class S3Config {
 
     //TODO : 환경변수로 관리
-    //    @Value("${cloud.aws.region.static}")
+//        @Value("${cloud.aws.region.static}")
     private String region = "ap-northeast-2";
 
     @Bean

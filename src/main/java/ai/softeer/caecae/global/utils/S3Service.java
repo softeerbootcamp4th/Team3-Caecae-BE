@@ -39,8 +39,8 @@ public class S3Service {
         String filePath;
         // 파일 업로드
         try (InputStream inputStream = file.getInputStream()) {
-            amazonS3.putObject(new PutObjectRequest(bucket, fileName, inputStream, objectMetadata)
-                    .withCannedAcl(CannedAccessControlList.PublicRead));
+            amazonS3.putObject(new PutObjectRequest(bucket, fileName, inputStream, objectMetadata));
+//                    .withCannedAcl(CannedAccessControlList.PublicRead));
             // 올린 오브젝트에 대한 s3 url
              filePath = amazonS3.getUrl(bucket, fileName).toString();
         } catch (IOException e) {
