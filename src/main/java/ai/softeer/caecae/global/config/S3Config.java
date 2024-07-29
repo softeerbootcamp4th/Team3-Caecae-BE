@@ -1,8 +1,6 @@
 package ai.softeer.caecae.global.config;
 
-import com.amazonaws.auth.AWSCredentials;
-import com.amazonaws.auth.AWSStaticCredentialsProvider;
-import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import lombok.RequiredArgsConstructor;
@@ -13,19 +11,16 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @RequiredArgsConstructor
 public class S3Config {
-    @Value("${cloud.aws.credentials.access-key}")
-    private String accessKey;
-    @Value("${cloud.aws.credentials.secret-key}")
-    private String secretKey;
+
     @Value("${cloud.aws.region.static}")
     private String region;
 
     @Bean
-    public AmazonS3 amazonS3(){
-        AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
+    public AmazonS3 amazonS3() {
         return AmazonS3ClientBuilder
                 .standard()
-                .withCredentials(new AWSStaticCredentialsProvider(credentials))
+                // 환경변수의 key 체크 후(로컬), 존재하지 않으면 IAM Role 메타데이터를 확인함(서버)
+                .withCredentials(new DefaultAWSCredentialsProviderChain())
                 .withRegion(region)
                 .build();
     }

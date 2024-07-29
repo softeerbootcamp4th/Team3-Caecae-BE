@@ -12,11 +12,16 @@ import org.springframework.web.multipart.MultipartFile;
 public class S3Controller {
     private final S3Service s3Service;
 
-    @PostMapping("/s3")
+    @PostMapping("api/s3")
     public String upload(@RequestParam("file") MultipartFile file) {
         String filePath = s3Service.uploadFile(file);
-        return filePath;
+        return filePath +"created!";
         //TODO : ResponseEntity 생성하기
 
+    }
+
+    @PostMapping("/api/health")
+    public String healthCheck() {
+        return "Hello Casper!";
     }
 }
