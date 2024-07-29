@@ -24,21 +24,22 @@ repositories {
 }
 
 dependencies {
-	//spring web
+	// Spring Web
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 
-	//lombok
+	// Lombok
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 
-	//test
+	// Test
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
-	//DB
-//	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-//	runtimeOnly 'com.mysql:mysql-connector-j'
+	// AWS SDK for S3
+	implementation 'com.amazonaws:aws-java-sdk-s3:1.12.503'
 
+	// Spring Cloud AWS (Optional)
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 }
 
 tasks.named('test') {
