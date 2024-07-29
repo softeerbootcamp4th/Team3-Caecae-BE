@@ -21,8 +21,9 @@ import java.util.UUID; // 추가
 public class S3Service {
     private final AmazonS3 amazonS3;
 
-    @Value("${cloud.aws.s3.bucket}")
-    private String bucket;
+    //TODO : 환경변수로 관리
+//    @Value("${cloud.aws.s3.bucket}")
+    private String bucket = "caecae-bucket";
 
     /**
      * S3에 파일을 업로드 하는 서비스 로직
