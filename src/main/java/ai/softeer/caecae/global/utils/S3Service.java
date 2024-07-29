@@ -25,6 +25,7 @@ public class S3Service {
 //    @Value("${cloud.aws.s3.bucket}")
     private String bucket = "caecae-bucket";
 
+
     /**
      * S3에 파일을 업로드 하는 서비스 로직
      * @param file
@@ -41,6 +42,7 @@ public class S3Service {
         try (InputStream inputStream = file.getInputStream()) {
             amazonS3.putObject(new PutObjectRequest(bucket, fileName, inputStream, objectMetadata));
 //                    .withCannedAcl(CannedAccessControlList.PublicRead));
+
             // 올린 오브젝트에 대한 s3 url
              filePath = amazonS3.getUrl(bucket, fileName).toString();
         } catch (IOException e) {

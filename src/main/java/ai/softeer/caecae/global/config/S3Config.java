@@ -16,6 +16,7 @@ public class S3Config {
 //        @Value("${cloud.aws.region.static}")
     private String region = "ap-northeast-2";
 
+
     @Bean
     public AmazonS3 amazonS3() {
         return AmazonS3ClientBuilder
