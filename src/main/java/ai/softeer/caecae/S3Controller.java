@@ -16,7 +16,7 @@ public class S3Controller {
     @PostMapping("/api/s3")
     public String upload(@RequestParam("file") MultipartFile file) {
         String filePath = s3Service.uploadFile(file);
-        return filePath +"created!";
+        return filePath + "created!";
         //TODO : ResponseEntity 생성하기
 
     }

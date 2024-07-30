@@ -43,6 +43,10 @@ dependencies {
 	//AWS Parameter Store
 	implementation platform("io.awspring.cloud:spring-cloud-aws-dependencies:3.1.0")
 	implementation 'io.awspring.cloud:spring-cloud-aws-starter-parameter-store'
+
+    //DB
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    runtimeOnly 'com.mysql:mysql-connector-j'
 }
 
 tasks.named('test') {
