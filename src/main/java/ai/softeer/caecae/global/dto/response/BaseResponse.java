@@ -1,5 +1,10 @@
 package ai.softeer.caecae.global.dto.response;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
 public abstract class BaseResponse {
     // 커스텀 응답 코드 종류
     private int responseCode;
