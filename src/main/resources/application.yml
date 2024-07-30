@@ -1,4 +1,17 @@
 spring:
+  s3:
+    bucket: ${S3_BUCKET}
+  region:
+    static: ${REGION}
+
+---
+spring:
   profiles:
-    include:
-      - s3
+    active: dev
+
+---
+spring:
+  profiles:
+    active: prod
+
+
