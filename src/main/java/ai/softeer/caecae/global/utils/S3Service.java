@@ -21,13 +21,13 @@ import java.util.UUID; // 추가
 public class S3Service {
     private final AmazonS3 amazonS3;
 
-    //TODO : 환경변수로 관리
-//    @Value("${cloud.aws.s3.bucket}")
-    private String bucket = "caecae-bucket";
+    @Value("${spring.s3.bucket}")
+    private String bucket;
 
 
     /**
      * S3에 파일을 업로드 하는 서비스 로직
+     *
      * @param file
      * @return 파일 이름
      */
@@ -44,12 +44,12 @@ public class S3Service {
 //                    .withCannedAcl(CannedAccessControlList.PublicRead));
 
             // 올린 오브젝트에 대한 s3 url
-             filePath = amazonS3.getUrl(bucket, fileName).toString();
+            filePath = amazonS3.getUrl(bucket, fileName).toString();
         } catch (IOException e) {
             throw new IllegalArgumentException("파일이 없습니다.");
             //TODO : 커스텀 에러 관리하기
         }
-        log.info(filePath," is successfully created in S3");
+        log.info(filePath, " is successfully created in S3");
         return filePath;
     }
 
