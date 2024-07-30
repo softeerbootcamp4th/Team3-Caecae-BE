@@ -35,6 +35,15 @@ jobs:
             ~/.gradle/wrapper
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
 
+      - name: Setup MySQL
+        uses: samin/mysql-action@v1
+        with:
+          character set server: 'utf8'
+          mysql database: 'caecae-tetst'
+          mysql user: 'caecae'
+          mysql password: 'passwd'
+      #          mysql password: ${{ secrets.MYSQL_PASSWORD }} # github Secret 탭에서 설정하세요!
+
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
