@@ -37,9 +37,12 @@ dependencies {
 
 	// AWS SDK for S3
 	implementation 'com.amazonaws:aws-java-sdk-s3:1.12.503'
-
-	// Spring Cloud AWS (Optional)
+	// Spring Cloud AWS (Optional) for S3
 	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+
+	//AWS Parameter Store
+	implementation platform("io.awspring.cloud:spring-cloud-aws-dependencies:3.1.0")
+	implementation 'io.awspring.cloud:spring-cloud-aws-starter-parameter-store'
 }
 
 tasks.named('test') {
