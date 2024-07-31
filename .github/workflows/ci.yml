@@ -39,7 +39,9 @@ jobs:
         uses: samin/mysql-action@v1
         with:
           character set server: 'utf8'
-          mysql database: 'caecae-tetst'
+          host port: 3306
+          container port: 3306
+          mysql database: 'caecaet'
           mysql user: 'caecae'
           mysql password: 'pas123swd'
 
