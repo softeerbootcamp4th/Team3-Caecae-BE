@@ -1,0 +1,6 @@
+config:
+  type: aws-parameterstore:/config/caecae/
+
+spring:
+  config:
+    import: ${config.type}
