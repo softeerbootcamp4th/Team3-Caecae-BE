@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Entity
 public class FindingGame extends BaseEntity {
     @Id
-    private Integer findingGameId;
+    private Integer id;
 
     @Column(nullable = false)
     private String imageUrl;
