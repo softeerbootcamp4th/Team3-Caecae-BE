@@ -9,8 +9,8 @@ import jakarta.persistence.IdClass;
 @IdClass(FindingGameWinnerId.class)
 public class FindingGameWinner extends BaseEntity {
     @Id
-    private int userId;
+    private Integer userId;
 
     @Id
-    private int findingGameId;
+    private Integer findingGameId;
 }
