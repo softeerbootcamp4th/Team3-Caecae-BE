@@ -45,7 +45,7 @@ public class S3Service {
             throw new IllegalArgumentException("파일이 없습니다.");
             //TODO : 커스텀 에러 관리하기
         }
-        log.info(filePath," is successfully created in S3");
+        log.info(filePath, " is successfully created in S3");
         return filePath;
     }
 
