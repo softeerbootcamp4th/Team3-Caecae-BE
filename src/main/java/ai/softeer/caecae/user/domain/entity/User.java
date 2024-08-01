@@ -1,17 +1,16 @@
 package ai.softeer.caecae.user.domain.entity;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import ai.softeer.caecae.global.entity.BaseEntity;
+import jakarta.persistence.*;
 
 @Entity
-public class User {
+public class User extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
 
-    private Integer phone;
+    @Column(unique = true, nullable = false)
+    private int phone;
 }
