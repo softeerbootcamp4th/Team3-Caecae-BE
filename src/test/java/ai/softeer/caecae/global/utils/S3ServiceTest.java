@@ -4,6 +4,7 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -46,20 +47,22 @@ class S3ServiceTest {
         );
     }
 
+    //TODO : 통합테스트를 위한 CICD 과정에서 의존성 주입
+    @Disabled
     @Test
     @DisplayName("멀티파트 파일을 S3에 업로드하고 url을 반환함")
     void uploadFile() throws MalformedURLException {
-//        //given
-//        String expectedUrl = "https://test-bucket.s3.amazonaws.com/caecae-uuid.png";
-//
-//        when(amazonS3.getUrl(anyString(), anyString())).thenReturn(new java.net.URL(expectedUrl));
-//        doNothing().when(amazonS3).putObject(any(PutObjectRequest.class));
-//
-//        //when
-//        String result = s3Service.uploadFile(mockMultipartFile);
-//
-//        //then
-//        assertEquals(expectedUrl, result);
-//        verify(amazonS3, times(1)).putObject(any(PutObjectRequest.class));
+        //given
+        String expectedUrl = "https://test-bucket.s3.amazonaws.com/caecae-uuid.png";
+
+        when(amazonS3.getUrl(anyString(), anyString())).thenReturn(new java.net.URL(expectedUrl));
+        doNothing().when(amazonS3).putObject(any(PutObjectRequest.class));
+
+        //when
+        String result = s3Service.uploadFile(mockMultipartFile);
+
+        //then
+        assertEquals(expectedUrl, result);
+        verify(amazonS3, times(1)).putObject(any(PutObjectRequest.class));
     }
 }
