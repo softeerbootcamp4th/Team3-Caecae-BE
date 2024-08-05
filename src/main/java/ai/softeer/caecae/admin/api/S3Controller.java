@@ -1,4 +1,4 @@
-package ai.softeer.caecae;
+package ai.softeer.caecae.admin.api;
 
 import ai.softeer.caecae.global.utils.S3Service;
 import lombok.RequiredArgsConstructor;
