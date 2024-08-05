@@ -52,6 +52,11 @@ dependencies {
     // Redis
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
+    // LocalDateTime 직렬화
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.17.2'
+    implementation("com.fasterxml.jackson.core:jackson-databind")
+
+
 }
 
 tasks.named('test') {
