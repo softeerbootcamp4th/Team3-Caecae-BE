@@ -1,6 +1,7 @@
 package ai.softeer.caecae.racinggame.service;
 
-import ai.softeer.caecae.racinggame.domain.dto.request.RegisterRacingGameRequestDto;
+import ai.softeer.caecae.racinggame.domain.dto.request.RegisterRacingGameInfoRequestDto;
+import ai.softeer.caecae.racinggame.domain.dto.response.RacingGameInfoResponseDto;
 import ai.softeer.caecae.racinggame.domain.entity.RacingGameInfo;
 import ai.softeer.caecae.racinggame.repository.RacingGameInfoRepository;
 import lombok.AccessLevel;
@@ -13,19 +14,35 @@ import java.time.LocalDateTime;
 @Slf4j
 @Service
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
-public class RacingGameService {
+public class RacingGameInfoService {
     private final RacingGameInfoRepository racingGameInfoRepository;
+
+
+    /**
+     * 어드민이 등록된 레이싱게임 정보를 조회하는 로직
+     *
+     * @return
+     */
+    public RacingGameInfoResponseDto getRacingGameInfo() {
+        RacingGameInfo racingGameInfo = racingGameInfoRepository.get();
+        return RacingGameInfoResponseDto.builder()
+                .startTime(racingGameInfo.getStartTime())
+                .endTime(racingGameInfo.getEndTime())
+                .numberOfWinners(racingGameInfo.getNumberOfWinners())
+                .build();
+
+    }
 
     /**
      * 어드민이 레이싱게임 정보를 등록하는 로직
      *
      * @param req 입력한 레이싱게임 정보
      */
-    public void registerRacingGame(RegisterRacingGameRequestDto req) {
+    public void registerRacingGameInfo(RegisterRacingGameInfoRequestDto req) {
         RacingGameInfo racingGameInfo = RacingGameInfo.builder()
                 .startTime(req.startTime())
                 .endTime(req.endTime())
-                .numberOfWinners(req.numberOfwinners())
+                .numberOfWinners(req.numberOfWinners())
                 .build();
 
         // TODO : 존재하면 저장하지 않거나 업데이트 하거나 에러 던지기. 현재는 덮어씌워짐
