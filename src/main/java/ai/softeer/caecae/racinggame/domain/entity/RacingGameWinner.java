@@ -12,5 +12,5 @@ public class RacingGameWinner extends BaseEntity {
     private User user;
 
     @Column(nullable = false)
-    private int rank;
+    private int ranking;
 }

@@ -1,7 +1,6 @@
 package ai.softeer.caecae.global.utils;
 
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import lombok.RequiredArgsConstructor;
@@ -10,9 +9,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException; // 추가
-import java.io.InputStream; // 추가
-import java.util.UUID; // 추가
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -26,6 +25,7 @@ public class S3Service {
 
     /**
      * S3에 파일을 업로드 하는 서비스 로직
+     *
      * @param file
      * @return 파일 이름
      */
@@ -40,7 +40,7 @@ public class S3Service {
         try (InputStream inputStream = file.getInputStream()) {
             amazonS3.putObject(new PutObjectRequest(bucket, fileName, inputStream, objectMetadata));
             // 올린 오브젝트에 대한 s3 url
-             filePath = amazonS3.getUrl(bucket, fileName).toString();
+            filePath = amazonS3.getUrl(bucket, fileName).toString();
         } catch (IOException e) {
             throw new IllegalArgumentException("파일이 없습니다.");
             //TODO : 커스텀 에러 관리하기
