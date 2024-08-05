@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 public class ErrorResponse extends BaseResponse {
 
     private ErrorResponse(ErrorCode errorCode) {
-        super(errorCode.getResponseCode(),errorCode.getMessage());
+        super(errorCode.getResponseCode(), errorCode.getMessage());
     }
 
     public static ResponseEntity<ErrorResponse> of(ErrorCode errorCode) {

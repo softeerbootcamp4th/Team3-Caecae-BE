@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class HealthTestController {
     @GetMapping("/api/health")
     public ResponseEntity<SuccessResponse<String>> healthTest() {
-        return SuccessResponse.of(SuccessCode.OK,"Caecae Spring Server Health Test ~!");
+        return SuccessResponse.of(SuccessCode.OK, "Caecae Spring Server Health Test ~!");
     }
 }
 

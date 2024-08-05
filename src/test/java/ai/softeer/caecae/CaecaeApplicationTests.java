@@ -5,8 +5,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 class CaecaeApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+    @Test
+    void contextLoads() {
+    }
 
 }

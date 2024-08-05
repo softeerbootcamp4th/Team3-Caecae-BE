@@ -28,5 +28,4 @@ public class SuccessResponse<T> extends BaseResponse {
     }
 
 
-
 }
