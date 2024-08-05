@@ -1,8 +1,10 @@
 package ai.softeer.caecae.racinggame.service;
 
+import ai.softeer.caecae.global.enums.ErrorCode;
 import ai.softeer.caecae.racinggame.domain.dto.request.RegisterRacingGameInfoRequestDto;
 import ai.softeer.caecae.racinggame.domain.dto.response.RacingGameInfoResponseDto;
 import ai.softeer.caecae.racinggame.domain.entity.RacingGameInfo;
+import ai.softeer.caecae.racinggame.domain.exception.RacingGameException;
 import ai.softeer.caecae.racinggame.repository.RacingGameInfoRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +27,9 @@ public class RacingGameInfoService {
      */
     public RacingGameInfoResponseDto getRacingGameInfo() {
         RacingGameInfo racingGameInfo = racingGameInfoRepository.get();
+        if (racingGameInfo == null) {
+            throw new RacingGameException(ErrorCode.RACING_GAME_NOT_FOUND);
+        }
         return RacingGameInfoResponseDto.builder()
                 .startTime(racingGameInfo.getStartTime())
                 .endTime(racingGameInfo.getEndTime())
