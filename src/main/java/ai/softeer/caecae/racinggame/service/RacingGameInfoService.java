@@ -19,7 +19,6 @@ import java.time.LocalDateTime;
 public class RacingGameInfoService {
     private final RacingGameInfoRepository racingGameInfoRepository;
 
-
     /**
      * 어드민이 등록된 레이싱게임 정보를 조회하는 로직
      *
@@ -35,7 +34,6 @@ public class RacingGameInfoService {
                 .endTime(racingGameInfo.getEndTime())
                 .numberOfWinners(racingGameInfo.getNumberOfWinners())
                 .build();
-
     }
 
     /**

@@ -17,7 +17,5 @@ public class S3Controller {
         String filePath = s3Service.uploadFile(file);
         return filePath + "created!";
         //TODO : ResponseEntity 생성하기
-
     }
-
 }

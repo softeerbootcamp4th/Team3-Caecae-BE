@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class JacksonConfig {
-
     // LocalDateTime 직렬화를 위한 설정
     @Bean
     public ObjectMapper objectMapper() {
