@@ -20,8 +20,4 @@ public class S3Controller {
 
     }
 
-    @PostMapping("/api/health")
-    public String healthCheck() {
-        return "Hello Casper!";
-    }
 }
