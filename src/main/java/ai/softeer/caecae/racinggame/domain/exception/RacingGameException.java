@@ -10,8 +10,5 @@ public class RacingGameException extends RuntimeException {
     public RacingGameException(ErrorCode errorCode) {
         super(errorCode.getMessage());
         this.errorCode = errorCode;
-
-
     }
-
 }

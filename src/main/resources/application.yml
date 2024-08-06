@@ -19,3 +19,10 @@ spring:
     bucket: ${S3_BUCKET}
   region:
     static: ${REGION}
+
+  # redis
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
+

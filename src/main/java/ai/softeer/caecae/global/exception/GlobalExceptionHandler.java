@@ -4,6 +4,7 @@ import ai.softeer.caecae.global.dto.response.ErrorResponse;
 import ai.softeer.caecae.global.enums.ErrorCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 /**

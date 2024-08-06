@@ -1,4 +1,4 @@
-package ai.softeer.caecae;
+package ai.softeer.caecae.admin.api;
 
 import ai.softeer.caecae.global.utils.S3Service;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,5 @@ public class S3Controller {
         String filePath = s3Service.uploadFile(file);
         return filePath + "created!";
         //TODO : ResponseEntity 생성하기
-
     }
-
 }
