@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 /**
  * RacingGame 도메인에서 에러를 핸들링하여 HttpResponse 를 반환하는 핸들러
  */
-@ControllerAdvice
 @Slf4j
+@ControllerAdvice
 public class RacingGameExceptionHandler {
     // RacingGameException 에 대한 에러 핸들링
     @ExceptionHandler(value = RacingGameException.class)
