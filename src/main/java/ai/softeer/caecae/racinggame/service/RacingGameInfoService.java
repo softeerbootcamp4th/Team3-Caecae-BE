@@ -6,7 +6,6 @@ import ai.softeer.caecae.racinggame.domain.dto.response.RacingGameInfoResponseDt
 import ai.softeer.caecae.racinggame.domain.entity.RacingGameInfo;
 import ai.softeer.caecae.racinggame.domain.exception.RacingGameException;
 import ai.softeer.caecae.racinggame.repository.RacingGameInfoRepository;
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -15,7 +14,7 @@ import java.time.LocalDateTime;
 
 @Slf4j
 @Service
-@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
+@RequiredArgsConstructor
 public class RacingGameInfoService {
     private final RacingGameInfoRepository racingGameInfoRepository;
 
