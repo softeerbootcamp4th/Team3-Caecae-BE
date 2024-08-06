@@ -21,6 +21,10 @@ import java.util.List;
 public class RacingGameApi {
     private final RacingGameService racingGameService;
 
+    /**
+     * 레이싱 게임 종료마다 사용자의 대략적인 랭킹 반환하는 API
+     * @param req 사용자의 레이싱 게임 기록 정보
+     */
     @GetMapping("/percent")
     public ResponseEntity<SuccessResponse<PercentResponseDto>> getPercent(PercentRequestDto req) {
         return SuccessResponse.of(SuccessCode.OK, racingGameService.getRankingPercentage(req));

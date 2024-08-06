@@ -9,6 +9,7 @@ import java.util.List;
 
 @Repository
 public interface RacingGameRepository extends JpaRepository<RacingGameParticipant, Integer> {
+    // TODO: 추후 캐싱 관리 필요 (with 스케쥴러)
     @Query(value = "SELECT ABS(distance - 3.15) AS adj_dist FROM racing_game_participant ORDER BY adj_dist ASC", nativeQuery = true)
     List<Double> getAdjustedDistance();
 }

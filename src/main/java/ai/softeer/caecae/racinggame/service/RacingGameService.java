@@ -13,6 +13,12 @@ import java.util.List;
 public class RacingGameService {
     private final RacingGameRepository racingGameRepository;
 
+
+    /**
+     * 레이싱 게임 종료마다 사용자의 대략적인 랭킹을 반환하는 메서드
+     * @param req 레이싱 게임 사용자 기록
+     * @return PercentResponseDto
+     */
     public PercentResponseDto getRankingPercentage(PercentRequestDto req) {
         double userRecord = Math.abs(req.distance() - 3.15);
         List<Double> distanceList = racingGameRepository.getAdjustedDistance();
@@ -23,6 +29,8 @@ public class RacingGameService {
             if (distanceList.get(mid) <= userRecord) lo = mid;
             else hi = mid;
         }
-        return new PercentResponseDto((double) lo / (distanceList.size() - 1) * 100);
+        return PercentResponseDto.builder()
+                .percent((double) lo / (distanceList.size() - 1) * 100)
+                .build();
     }
 }
