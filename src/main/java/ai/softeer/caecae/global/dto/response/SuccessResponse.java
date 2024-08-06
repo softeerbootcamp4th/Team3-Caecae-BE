@@ -21,7 +21,7 @@ public class SuccessResponse<T> extends BaseResponse {
         this.data = data;
     }
 
-    // 성공 관련 정보,  반환 데이터를 파라미터로 받는 생성자
+    // 성공 관련 정보를 파라미터로 받는 생성자
     private SuccessResponse(SuccessCode successCode) {
         super(successCode.getResponseCode(), successCode.getMessage());
     }
