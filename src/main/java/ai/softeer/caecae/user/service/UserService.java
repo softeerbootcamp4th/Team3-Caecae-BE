@@ -1,7 +1,6 @@
 package ai.softeer.caecae.user.service;
 
 import ai.softeer.caecae.user.domain.dto.request.FindAndRegisterUserRequestDto;
-import ai.softeer.caecae.user.domain.dto.response.FindAndRegisterUserResponseDto;
 import ai.softeer.caecae.user.domain.entity.User;
 import ai.softeer.caecae.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,12 +19,10 @@ public class UserService {
      * @param req 휴대폰 번호
      * @return 등록된 유저의 userId
      */
-    public FindAndRegisterUserResponseDto findAndRegisterUser(FindAndRegisterUserRequestDto req) {
+    // 다른 서비스에서 사용해야 해서 엔티티를 반환하는게 맞을까...?
+    public User findAndRegisterUser(FindAndRegisterUserRequestDto req) {
         Optional<User> optionalUser = userRepository.findByPhone(req.phone());
-        User user = optionalUser.orElseGet(() -> registerUser(req.phone()));
-        return FindAndRegisterUserResponseDto.builder()
-                .userId(user.getId())
-                .build();
+        return optionalUser.orElseGet(() -> registerUser(req.phone()));
     }
 
 
