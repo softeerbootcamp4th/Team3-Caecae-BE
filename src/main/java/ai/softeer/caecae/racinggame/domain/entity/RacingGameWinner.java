@@ -7,8 +7,10 @@ import jakarta.persistence.*;
 @Entity
 public class RacingGameWinner extends BaseEntity {
     @Id
+    private Integer userId;
+
     @OneToOne
-    @JoinColumn(name = "user_id", nullable = false, foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
     @Column(nullable = false)
