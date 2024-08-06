@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-
 public class RacingGameInfoRepository {
     // 레디스에 저장될 레이싱게임 정보의 키
     private final static String KEY = "racingGameInfo";
