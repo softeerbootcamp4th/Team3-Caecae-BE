@@ -1,6 +1,7 @@
 package ai.softeer.caecae.racinggame.service;
 
 import ai.softeer.caecae.global.enums.ErrorCode;
+import ai.softeer.caecae.racinggame.domain.dto.request.RegisterRacingGameInfoRequestDto;
 import ai.softeer.caecae.racinggame.domain.dto.response.RacingGameInfoResponseDto;
 import ai.softeer.caecae.racinggame.domain.entity.RacingGameInfo;
 import ai.softeer.caecae.racinggame.domain.exception.RacingGameException;
@@ -69,9 +70,23 @@ class RacingGameInfoServiceTest {
     @DisplayName("어드민이 레이싱게임 정보를 등록하기 - 성공")
     void registerRacingGameInfo() {
         //TODO : 예외처리 후 테스트코드 작성
-        //given
-        //when
-        //then
+
+        // given
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime startTime = now.minusDays(1);
+        LocalDateTime endTime = now.plusDays(1);
+
+
+        RegisterRacingGameInfoRequestDto registerRacingGameInfoRequestDto = RegisterRacingGameInfoRequestDto.builder()
+                .startTime(startTime)
+                .endTime(endTime)
+                .numberOfWinners(300)
+                .build();
+
+        Mockito.doNothing().when(racingGameInfoRepository).save(Mockito.any(RacingGameInfo.class));
+
+        // when & then
+        racingGameInfoService.registerRacingGameInfo(registerRacingGameInfoRequestDto);
     }
 
     @Test

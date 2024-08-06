@@ -48,7 +48,7 @@ public class RacingGameInfoService {
                 .numberOfWinners(req.numberOfWinners())
                 .build();
 
-        // TODO : 존재하면 저장하지 않거나 업데이트 하거나 에러 던지기. 현재는 덮어씌워짐
+        // TODO : 존재하면 저장하지 않거나 업데이트 하거나 에러를 던져야할 지 논의하기. 현재는 덮어씌워짐
         racingGameInfoRepository.save(racingGameInfo);
         log.info("saved racingGameInfo: {}", racingGameInfo.getStartTime(), racingGameInfo.getEndTime());
 
