@@ -11,7 +11,7 @@ import org.springframework.http.HttpStatus;
 @Getter
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public enum SuccessCode implements BaseCode {
-    //TODO : 코드 문서화
+    //TODO : 코드 문서화 및 간소화
     /**
      * 1000 : 틀린그림찾기
      */
