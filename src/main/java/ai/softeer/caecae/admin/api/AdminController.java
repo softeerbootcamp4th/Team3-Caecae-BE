@@ -4,6 +4,7 @@ import ai.softeer.caecae.global.dto.response.SuccessResponse;
 import ai.softeer.caecae.global.enums.SuccessCode;
 import ai.softeer.caecae.racinggame.domain.dto.request.RegisterRacingGameInfoRequestDto;
 import ai.softeer.caecae.racinggame.domain.dto.response.RacingGameInfoResponseDto;
+import ai.softeer.caecae.racinggame.domain.dto.response.RegisterRacingGameInfoResponseDto;
 import ai.softeer.caecae.racinggame.service.RacingGameInfoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -34,8 +35,8 @@ public class AdminController {
      * @return
      */
     @PostMapping("/racing/period")
-    public ResponseEntity<SuccessResponse<Object>> registerRacingGame(@RequestBody RegisterRacingGameInfoRequestDto req) {
-        racingGameService.registerRacingGameInfo(req);
-        return SuccessResponse.of(SuccessCode.RACING_GAME_CREATED);
+    public ResponseEntity<SuccessResponse<RegisterRacingGameInfoResponseDto>> registerRacingGame(@RequestBody RegisterRacingGameInfoRequestDto req) {
+        RegisterRacingGameInfoResponseDto res = racingGameService.registerRacingGameInfo(req);
+        return SuccessResponse.of(SuccessCode.RACING_GAME_CREATED, res);
     }
 }
