@@ -32,7 +32,6 @@ public class AdminController {
      * 관리자가 레이싱게임의 시작시간, 종료시간, 당첨인원을 설정하는 api
      *
      * @param req 레이싱게임 정보
-     * @return
      */
     @PostMapping("/racing/period")
     public ResponseEntity<SuccessResponse<RegisterRacingGameInfoResponseDto>> registerRacingGame(@RequestBody RegisterRacingGameInfoRequestDto req) {
