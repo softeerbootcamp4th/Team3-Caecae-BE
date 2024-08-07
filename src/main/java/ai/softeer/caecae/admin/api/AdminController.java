@@ -1,5 +1,7 @@
 package ai.softeer.caecae.admin.api;
 
+import ai.softeer.caecae.admin.domain.dto.response.DrawResponseDto;
+import ai.softeer.caecae.admin.service.AdminService;
 import ai.softeer.caecae.global.dto.response.SuccessResponse;
 import ai.softeer.caecae.global.enums.SuccessCode;
 import ai.softeer.caecae.racinggame.domain.dto.request.RegisterRacingGameInfoRequestDto;
@@ -9,12 +11,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/admin")
 @CrossOrigin(origins = "*") // TODO : 전역에 적용되도록 수정
 @RequiredArgsConstructor
 public class AdminController {
     private final RacingGameInfoService racingGameService;
+    private final AdminService adminService;
 
     /**
      * 관리자가 등록된 레이싱게임의 정보를 조회하는 로직
@@ -37,5 +42,10 @@ public class AdminController {
     public ResponseEntity<SuccessResponse<Object>> registerRacingGame(@RequestBody RegisterRacingGameInfoRequestDto req) {
         racingGameService.registerRacingGameInfo(req);
         return SuccessResponse.of(SuccessCode.RACING_GAME_CREATED);
+    }
+
+    @PostMapping("/racing/draw")
+    public ResponseEntity<SuccessResponse<List<DrawResponseDto>>> drawRacingGameWinner() {
+        return SuccessResponse.of(SuccessCode.OK, adminService.drawRacingGameWinner());
     }
 }
