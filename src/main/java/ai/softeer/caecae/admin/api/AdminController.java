@@ -16,7 +16,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/admin")
-@CrossOrigin(origins = "*") // TODO : 전역에 적용되도록 수정
 @RequiredArgsConstructor
 public class AdminController {
     private final RacingGameInfoService racingGameService;
