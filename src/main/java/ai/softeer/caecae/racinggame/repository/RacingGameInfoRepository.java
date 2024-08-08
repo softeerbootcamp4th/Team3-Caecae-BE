@@ -13,8 +13,9 @@ public class RacingGameInfoRepository {
     private final RedisTemplate<String, Object> redisTemplate;
 
     // 레디스에 저장하는 로직
-    public void save(RacingGameInfo gameInfo) {
+    public RacingGameInfo save(RacingGameInfo gameInfo) {
         redisTemplate.opsForValue().set(KEY, gameInfo);
+        return gameInfo;
     }
 
     // 레디스에 저장된 객체를 가져오는 로직

@@ -38,4 +38,9 @@ public class RacingGameParticipant extends BaseEntity {
     public void updateDistance(double distance) {
         this.distance = distance;
     }
+
+    // 엔티티의 커스텀 옵션 정보를 저장하는 메서드
+    public void setSelection(Integer selection) {
+        this.selection = selection;
+    }
 }

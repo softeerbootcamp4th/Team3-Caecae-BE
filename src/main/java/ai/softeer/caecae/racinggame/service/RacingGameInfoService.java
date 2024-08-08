@@ -3,6 +3,7 @@ package ai.softeer.caecae.racinggame.service;
 import ai.softeer.caecae.global.enums.ErrorCode;
 import ai.softeer.caecae.racinggame.domain.dto.request.RegisterRacingGameInfoRequestDto;
 import ai.softeer.caecae.racinggame.domain.dto.response.RacingGameInfoResponseDto;
+import ai.softeer.caecae.racinggame.domain.dto.response.RegisterRacingGameInfoResponseDto;
 import ai.softeer.caecae.racinggame.domain.entity.RacingGameInfo;
 import ai.softeer.caecae.racinggame.domain.exception.RacingGameException;
 import ai.softeer.caecae.racinggame.repository.RacingGameInfoRepository;
@@ -40,7 +41,7 @@ public class RacingGameInfoService {
      *
      * @param req 입력한 레이싱게임 정보
      */
-    public void registerRacingGameInfo(RegisterRacingGameInfoRequestDto req) {
+    public RegisterRacingGameInfoResponseDto registerRacingGameInfo(RegisterRacingGameInfoRequestDto req) {
         RacingGameInfo racingGameInfo = RacingGameInfo.builder()
                 .startTime(req.startTime())
                 .endTime(req.endTime())
@@ -48,9 +49,14 @@ public class RacingGameInfoService {
                 .build();
 
         // TODO : 존재하면 저장하지 않거나 업데이트 하거나 에러를 던져야할 지 논의하기. 현재는 덮어씌워짐
-        racingGameInfoRepository.save(racingGameInfo);
+        RacingGameInfo saved = racingGameInfoRepository.save(racingGameInfo);
         log.info("saved racingGameInfo: {}", racingGameInfo.getStartTime(), racingGameInfo.getEndTime());
 
+        return RegisterRacingGameInfoResponseDto.builder()
+                .startTime(saved.getStartTime())
+                .endTime(saved.getEndTime())
+                .numberOfWinners(saved.getNumberOfWinners())
+                .build();
     }
 
     /**

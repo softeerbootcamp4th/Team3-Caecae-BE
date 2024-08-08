@@ -12,6 +12,7 @@ public abstract class BaseResponse {
     // 커스텀 응답 코드 종류
     // TODO : 커스텀 응답코드 문서화
     private int responseCode;
+    
     // 응답 정보를 담은 메시지
     private String message;
 }

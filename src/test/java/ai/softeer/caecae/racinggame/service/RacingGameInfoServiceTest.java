@@ -3,6 +3,7 @@ package ai.softeer.caecae.racinggame.service;
 import ai.softeer.caecae.global.enums.ErrorCode;
 import ai.softeer.caecae.racinggame.domain.dto.request.RegisterRacingGameInfoRequestDto;
 import ai.softeer.caecae.racinggame.domain.dto.response.RacingGameInfoResponseDto;
+import ai.softeer.caecae.racinggame.domain.dto.response.RegisterRacingGameInfoResponseDto;
 import ai.softeer.caecae.racinggame.domain.entity.RacingGameInfo;
 import ai.softeer.caecae.racinggame.domain.exception.RacingGameException;
 import ai.softeer.caecae.racinggame.repository.RacingGameInfoRepository;
@@ -16,6 +17,8 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
+
+import static org.mockito.ArgumentMatchers.any;
 
 @ExtendWith(MockitoExtension.class)
 class RacingGameInfoServiceTest {
@@ -83,10 +86,22 @@ class RacingGameInfoServiceTest {
                 .numberOfWinners(300)
                 .build();
 
-        Mockito.doNothing().when(racingGameInfoRepository).save(Mockito.any(RacingGameInfo.class));
+        RacingGameInfo racingGameInfo = RacingGameInfo.builder()
+                .startTime(startTime)
+                .endTime(endTime)
+                .numberOfWinners(300)
+                .build();
 
-        // when & then
-        racingGameInfoService.registerRacingGameInfo(registerRacingGameInfoRequestDto);
+        Mockito.when(racingGameInfoRepository.save(any(RacingGameInfo.class))).thenReturn(racingGameInfo);
+
+        // when
+        RegisterRacingGameInfoResponseDto res = racingGameInfoService.registerRacingGameInfo(registerRacingGameInfoRequestDto);
+
+        // then
+        Assertions.assertThat(res).isNotNull();
+        Assertions.assertThat(res.startTime()).isEqualTo(startTime);
+        Assertions.assertThat(res.endTime()).isEqualTo(endTime);
+        Assertions.assertThat(res.numberOfWinners()).isEqualTo(300);
     }
 
     @Test

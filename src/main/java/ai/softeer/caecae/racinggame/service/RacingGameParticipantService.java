@@ -1,8 +1,12 @@
 package ai.softeer.caecae.racinggame.service;
 
+import ai.softeer.caecae.global.enums.ErrorCode;
 import ai.softeer.caecae.racinggame.domain.dto.request.RegisterRacingGameResultRequestDto;
 import ai.softeer.caecae.racinggame.domain.dto.response.RegisterRacingGameResultResponseDto;
+import ai.softeer.caecae.racinggame.domain.dto.request.SetSelectionRequestDto;
+import ai.softeer.caecae.racinggame.domain.dto.response.SetSelectionResponseDto;
 import ai.softeer.caecae.racinggame.domain.entity.RacingGameParticipant;
+import ai.softeer.caecae.racinggame.domain.exception.RacingGameException;
 import ai.softeer.caecae.racinggame.repository.RacingGameParticipantRepository;
 import ai.softeer.caecae.user.domain.entity.User;
 import ai.softeer.caecae.user.repository.UserRepository;
@@ -24,7 +28,7 @@ public class RacingGameParticipantService {
      * 사용자가 레이싱게임 결과를 등록하는 서비스 로직
      *
      * @param req
-     * @return
+     * @return 레이싱게임 결과 등록 후, 사용자가 커스텀 옵션을 선택하였는지 여부
      */
     @Transactional // 복합키를 가지는 두 개의 엔티티를 하나의 영속성에서 저장하기 위해 트랜잭션
     public RegisterRacingGameResultResponseDto registerOrUpdateRacingGameResult(RegisterRacingGameResultRequestDto req) {
@@ -37,9 +41,10 @@ public class RacingGameParticipantService {
         // 레이싱게임 참여 이력이 존재하지 않음
         if (optionalRacingGameParticipant.isEmpty()) {
             log.info(req.phone() + "의 이전 기록 : 없음");
-            registerRacingGameResult(req, user);
+            RacingGameParticipant saved = registerRacingGameResult(req, user);
             return RegisterRacingGameResultResponseDto.builder()
                     .isOptionSelected(false)
+                    .distance(saved.getDistance())
                     .build();
         }
 
@@ -56,6 +61,7 @@ public class RacingGameParticipantService {
 
         return RegisterRacingGameResultResponseDto.builder()
                 .isOptionSelected(racingGameParticipant.isOptionSelected())
+                .distance(racingGameParticipant.getDistance())
                 .build();
     }
 
@@ -96,7 +102,32 @@ public class RacingGameParticipantService {
                 .phone(phone)
                 .build();
         return userRepository.save(user);
+    }
 
+    /**
+     * 사용자가 선택한 번호로 캐스퍼 커스텀 옵션을 저장하는 로직
+     *
+     * @param req 휴대폰 번호, 선택 옵션
+     */
+    public SetSelectionResponseDto setSelectionOption(SetSelectionRequestDto req) {
+        User user = userRepository.findByPhone(req.phone())
+                .orElseThrow(() -> new RacingGameException(ErrorCode.USER_NOT_FOUND));
 
+        RacingGameParticipant racingGameParticipant = racingGameParticipantRepository.findById(user.getId())
+                .orElseThrow(() -> new RacingGameException(ErrorCode.USER_NOT_FOUND));
+
+        // 이미 선택 옵션이 존재하는 경우, 예외를 던지
+        if (racingGameParticipant.isOptionSelected()) {
+            throw new RacingGameException(ErrorCode.SELECTION_ALREADY_SELECTED);
+        }
+
+        // 사용자가 선택한 커스텀 정보 업데이트
+        racingGameParticipant.setSelection(req.selection());
+        RacingGameParticipant saved = racingGameParticipantRepository.save(racingGameParticipant);
+
+        return SetSelectionResponseDto.builder()
+                .phone(req.phone())
+                .selection(saved.getSelection())
+                .build();
     }
 }
