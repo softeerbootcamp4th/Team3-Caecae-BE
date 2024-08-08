@@ -49,7 +49,7 @@ public class AdminController {
      *
      * @return 당첨자 리스트
      */
-    @PostMapping("/racing/draw")
+    @PostMapping("/racing/winners")
     public ResponseEntity<SuccessResponse<List<RacingGameWinnerResponseDto>>> drawRacingGameWinner() {
         return SuccessResponse.of(SuccessCode.CREATED, adminService.drawRacingGameWinner());
     }
