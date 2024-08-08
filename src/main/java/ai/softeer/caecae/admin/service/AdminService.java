@@ -4,16 +4,19 @@ import ai.softeer.caecae.admin.domain.dto.response.RacingGameWinnerResponseDto;
 import ai.softeer.caecae.racinggame.domain.entity.RacingGameParticipant;
 import ai.softeer.caecae.racinggame.domain.entity.RacingGameWinner;
 import ai.softeer.caecae.racinggame.repository.RacingGameInfoRepository;
+import ai.softeer.caecae.racinggame.repository.RacingGameParticipantRepository;
 import ai.softeer.caecae.racinggame.repository.RacingGameRepository;
 import ai.softeer.caecae.racinggame.repository.RacingGameWinnerRepository;
 import ai.softeer.caecae.user.domain.entity.User;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,6 +25,11 @@ public class AdminService {
     private final RacingGameRepository racingGameRepository;
     private final RacingGameWinnerRepository racingGameWinnerRepository;
 
+    /**
+     * 당첨자를 뽑는 서비스 로직
+     *
+     * @return 당첨자 리스트
+     */
     @Transactional
     public List<RacingGameWinnerResponseDto> drawRacingGameWinner() {
         List<RacingGameWinnerResponseDto> racingGameWinnerResponseDtoList = new ArrayList<>();
@@ -67,5 +75,26 @@ public class AdminService {
         // TODO: 수학적으로 보이기 + 더 나은 방법 생각해보기?
         racingGameWinnerRepository.saveAll(winners);
         return racingGameWinnerResponseDtoList;
+    }
+
+    /**
+     * 당첨자 리스트를 가져오는 서비스 로직
+     *
+     * @return 당첨자 리스트
+     */
+    public List<RacingGameWinnerResponseDto> getRacingGameWinner() {
+        List<RacingGameWinner> winners = racingGameWinnerRepository.findAll(Sort.by(Sort.Direction.ASC, "ranking"));
+        List<RacingGameWinnerResponseDto> WinnerResponseDtoList = new ArrayList<>();
+        for (RacingGameWinner winner : winners) {
+            // TBD :  당첨자 리스트에 있는 데 데이터 삭제로 인해 게임 참여자 테이블에 없는 경우를 고려할 것인가?
+            RacingGameParticipant p = racingGameRepository.findById(winner.getUserId()).get();
+            WinnerResponseDtoList.add(RacingGameWinnerResponseDto.builder()
+                            .ranking(winner.getRanking())
+                            .phone(winner.getUser().getPhone())
+                            .distance(p.getDistance())
+                            .selection(p.getSelection())
+                            .build());
+        }
+        return WinnerResponseDtoList;
     }
 }

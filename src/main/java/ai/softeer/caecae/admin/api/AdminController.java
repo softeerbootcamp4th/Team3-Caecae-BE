@@ -53,4 +53,14 @@ public class AdminController {
     public ResponseEntity<SuccessResponse<List<RacingGameWinnerResponseDto>>> drawRacingGameWinner() {
         return SuccessResponse.of(SuccessCode.CREATED, adminService.drawRacingGameWinner());
     }
+
+    /**
+     * 당첨자를 반환하는 API
+     *
+     * @return 당첨자 리스트
+     */
+    @GetMapping("/racing/winners")
+    public ResponseEntity<SuccessResponse<List<RacingGameWinnerResponseDto>>> getRacingGameWinner() {
+        return SuccessResponse.of(SuccessCode.OK, adminService.getRacingGameWinner());
+    }
 }
