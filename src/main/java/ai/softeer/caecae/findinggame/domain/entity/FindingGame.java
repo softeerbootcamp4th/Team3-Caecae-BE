@@ -1,19 +1,23 @@
 package ai.softeer.caecae.findinggame.domain.entity;
 
+import ai.softeer.caecae.findinggame.domain.enums.AnswerType;
 import ai.softeer.caecae.global.entity.BaseEntity;
 import jakarta.persistence.*;
-import org.hibernate.annotations.ColumnDefault;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Entity
+@Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class FindingGame extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE) //Bulk insert를 위한 pk type 설정
     private Integer id;
 
     @Column(nullable = false)
-    @ColumnDefault("no-image")
     private String imageUrl;
 
     @Column(nullable = false)
@@ -23,6 +27,16 @@ public class FindingGame extends BaseEntity {
     private LocalDateTime endTime;
 
     @Column(nullable = false)
-    @ColumnDefault("315")
     private int numberOfWinners;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private AnswerType answerType;
+
+    // 숨은 캐스퍼찾기 기간 업데이트
+    public FindingGame updateFindingGamePeriod(LocalDateTime startTime, LocalDateTime endTime) {
+        this.startTime = startTime;
+        this.endTime = endTime;
+        return this;
+    }
 }
