@@ -1,6 +1,6 @@
 package ai.softeer.caecae.admin.api;
 
-import ai.softeer.caecae.admin.domain.dto.response.DrawResponseDto;
+import ai.softeer.caecae.admin.domain.dto.response.RacingGameWinnerResponseDto;
 import ai.softeer.caecae.admin.service.AdminService;
 import ai.softeer.caecae.global.dto.response.SuccessResponse;
 import ai.softeer.caecae.global.enums.SuccessCode;
@@ -50,7 +50,7 @@ public class AdminController {
      * @return 당첨자 리스트
      */
     @PostMapping("/racing/draw")
-    public ResponseEntity<SuccessResponse<List<DrawResponseDto>>> drawRacingGameWinner() {
+    public ResponseEntity<SuccessResponse<List<RacingGameWinnerResponseDto>>> drawRacingGameWinner() {
         return SuccessResponse.of(SuccessCode.CREATED, adminService.drawRacingGameWinner());
     }
 }

@@ -1,6 +1,6 @@
 package ai.softeer.caecae.admin.service;
 
-import ai.softeer.caecae.admin.domain.dto.response.DrawResponseDto;
+import ai.softeer.caecae.admin.domain.dto.response.RacingGameWinnerResponseDto;
 import ai.softeer.caecae.racinggame.domain.entity.RacingGameParticipant;
 import ai.softeer.caecae.racinggame.domain.entity.RacingGameWinner;
 import ai.softeer.caecae.racinggame.repository.RacingGameInfoRepository;
@@ -23,8 +23,8 @@ public class AdminService {
     private final RacingGameWinnerRepository racingGameWinnerRepository;
 
     @Transactional
-    public List<DrawResponseDto> drawRacingGameWinner() {
-        List<DrawResponseDto> drawResponseDtoList = new ArrayList<>();
+    public List<RacingGameWinnerResponseDto> drawRacingGameWinner() {
+        List<RacingGameWinnerResponseDto> racingGameWinnerResponseDtoList = new ArrayList<>();
         List<RacingGameParticipant> participants = racingGameRepository.findAllByAdjustedDistance(315.0);
         List<RacingGameWinner> winners = new ArrayList<>();
 
@@ -50,7 +50,7 @@ public class AdminService {
             if (poss <= (double) arr[cur] / weightSum) {
                 RacingGameParticipant p = participants.get(cur);
                 User user = p.getUser();
-                drawResponseDtoList.add(DrawResponseDto.builder()
+                racingGameWinnerResponseDtoList.add(RacingGameWinnerResponseDto.builder()
                                 .ranking(ranking)
                                 .phone(user.getPhone())
                                 .distance(p.getDistance())
@@ -66,6 +66,6 @@ public class AdminService {
         }
         // TODO: 수학적으로 보이기 + 더 나은 방법 생각해보기?
         racingGameWinnerRepository.saveAll(winners);
-        return drawResponseDtoList;
+        return racingGameWinnerResponseDtoList;
     }
 }
