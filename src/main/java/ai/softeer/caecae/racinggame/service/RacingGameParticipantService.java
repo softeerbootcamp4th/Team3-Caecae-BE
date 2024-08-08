@@ -116,6 +116,11 @@ public class RacingGameParticipantService {
         RacingGameParticipant racingGameParticipant = racingGameParticipantRepository.findById(user.getId())
                 .orElseThrow(() -> new RacingGameException(ErrorCode.USER_NOT_FOUND));
 
+        // 이미 선택 옵션이 존재하는 경우, 예외를 던지
+        if (racingGameParticipant.isOptionSelected()) {
+            throw new RacingGameException(ErrorCode.SELECTION_ALREADY_SELECTED);
+        }
+
         // 사용자가 선택한 커스텀 정보 업데이트
         racingGameParticipant.setSelection(req.selection());
         RacingGameParticipant saved = racingGameParticipantRepository.save(racingGameParticipant);
