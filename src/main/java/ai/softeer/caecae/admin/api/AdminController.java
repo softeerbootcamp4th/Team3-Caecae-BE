@@ -44,8 +44,13 @@ public class AdminController {
         return SuccessResponse.of(SuccessCode.RACING_GAME_CREATED, res);
     }
 
+    /**
+     * 관리자가 레이싱게임 종료 후, 당첨자를 뽑는 API
+     *
+     * @return 당첨자 리스트
+     */
     @PostMapping("/racing/draw")
     public ResponseEntity<SuccessResponse<List<DrawResponseDto>>> drawRacingGameWinner() {
-        return SuccessResponse.of(SuccessCode.OK, adminService.drawRacingGameWinner());
+        return SuccessResponse.of(SuccessCode.CREATED, adminService.drawRacingGameWinner());
     }
 }
