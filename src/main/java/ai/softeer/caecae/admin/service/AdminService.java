@@ -83,10 +83,9 @@ public class AdminService {
      * @return 당첨자 리스트
      */
     public List<RacingGameWinnerResponseDto> getRacingGameWinner() {
-        List<RacingGameWinner> winners = racingGameWinnerRepository.findAll(Sort.by(Sort.Direction.ASC, "ranking"));
+        List<RacingGameWinner> winners = racingGameWinnerRepository.findAllByOrderByRankingAsc();
         List<RacingGameWinnerResponseDto> WinnerResponseDtoList = new ArrayList<>();
         for (RacingGameWinner winner : winners) {
-            // TBD :  당첨자 리스트에 있는 데 데이터 삭제로 인해 게임 참여자 테이블에 없는 경우를 고려할 것인가?
             RacingGameParticipant p = racingGameRepository.findById(winner.getUserId()).get();
             WinnerResponseDtoList.add(RacingGameWinnerResponseDto.builder()
                             .ranking(winner.getRanking())
