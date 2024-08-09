@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 // Redis Repository 도 만들어야 하므로 네이밍에 Db를 붙임
 @Repository
-public interface FindGameDbRepository extends JpaRepository<FindingGame, Integer> {
+public interface FindingGameDbRepository extends JpaRepository<FindingGame, Integer> {
 }
