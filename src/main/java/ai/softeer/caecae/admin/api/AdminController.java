@@ -43,7 +43,9 @@ public class AdminController {
      * @param req 레이싱게임 정보
      */
     @PostMapping("/racing/period")
-    public ResponseEntity<SuccessResponse<RegisterRacingGameInfoResponseDto>> registerRacingGame(@RequestBody RegisterRacingGameInfoRequestDto req) {
+    public ResponseEntity<SuccessResponse<RegisterRacingGameInfoResponseDto>> registerRacingGame(
+            @RequestBody RegisterRacingGameInfoRequestDto req
+    ) {
         RegisterRacingGameInfoResponseDto res = racingGameService.registerRacingGameInfo(req);
         return SuccessResponse.of(SuccessCode.RACING_GAME_CREATED, res);
     }
