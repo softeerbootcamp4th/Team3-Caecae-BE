@@ -1,19 +1,22 @@
 package ai.softeer.caecae.admin.service;
 
-import ai.softeer.caecae.admin.domain.dto.response.DrawResponseDto;
+import ai.softeer.caecae.admin.domain.dto.response.RacingGameWinnerResponseDto;
 import ai.softeer.caecae.racinggame.domain.entity.RacingGameParticipant;
 import ai.softeer.caecae.racinggame.domain.entity.RacingGameWinner;
 import ai.softeer.caecae.racinggame.repository.RacingGameInfoRepository;
+import ai.softeer.caecae.racinggame.repository.RacingGameParticipantRepository;
 import ai.softeer.caecae.racinggame.repository.RacingGameRepository;
 import ai.softeer.caecae.racinggame.repository.RacingGameWinnerRepository;
 import ai.softeer.caecae.user.domain.entity.User;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,9 +25,14 @@ public class AdminService {
     private final RacingGameRepository racingGameRepository;
     private final RacingGameWinnerRepository racingGameWinnerRepository;
 
+    /**
+     * 당첨자를 뽑는 서비스 로직
+     *
+     * @return 당첨자 리스트
+     */
     @Transactional
-    public List<DrawResponseDto> drawRacingGameWinner() {
-        List<DrawResponseDto> drawResponseDtoList = new ArrayList<>();
+    public List<RacingGameWinnerResponseDto> drawRacingGameWinner() {
+        List<RacingGameWinnerResponseDto> racingGameWinnerResponseDtoList = new ArrayList<>();
         List<RacingGameParticipant> participants = racingGameRepository.findAllByAdjustedDistance(315.0);
         List<RacingGameWinner> winners = new ArrayList<>();
 
@@ -50,7 +58,7 @@ public class AdminService {
             if (poss <= (double) arr[cur] / weightSum) {
                 RacingGameParticipant p = participants.get(cur);
                 User user = p.getUser();
-                drawResponseDtoList.add(DrawResponseDto.builder()
+                racingGameWinnerResponseDtoList.add(RacingGameWinnerResponseDto.builder()
                                 .ranking(ranking)
                                 .phone(user.getPhone())
                                 .distance(p.getDistance())
@@ -66,6 +74,26 @@ public class AdminService {
         }
         // TODO: 수학적으로 보이기 + 더 나은 방법 생각해보기?
         racingGameWinnerRepository.saveAll(winners);
-        return drawResponseDtoList;
+        return racingGameWinnerResponseDtoList;
+    }
+
+    /**
+     * 당첨자 리스트를 가져오는 서비스 로직
+     *
+     * @return 당첨자 리스트
+     */
+    public List<RacingGameWinnerResponseDto> getRacingGameWinner() {
+        List<RacingGameWinner> winners = racingGameWinnerRepository.findAllByOrderByRankingAsc();
+        List<RacingGameWinnerResponseDto> WinnerResponseDtoList = new ArrayList<>();
+        for (RacingGameWinner winner : winners) {
+            RacingGameParticipant p = racingGameRepository.findById(winner.getUserId()).get();
+            WinnerResponseDtoList.add(RacingGameWinnerResponseDto.builder()
+                            .ranking(winner.getRanking())
+                            .phone(winner.getUser().getPhone())
+                            .distance(p.getDistance())
+                            .selection(p.getSelection())
+                            .build());
+        }
+        return WinnerResponseDtoList;
     }
 }
