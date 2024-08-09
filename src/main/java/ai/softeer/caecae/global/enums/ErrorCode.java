@@ -29,6 +29,16 @@ public enum ErrorCode implements BaseCode {
      */
     USER_NOT_FOUND(-3000, "해당 휴대폰 번호로 유저를 찾을 수 없습니다.", HttpStatus.NOT_FOUND),
 
+    /**
+     * 4xxx : 어드민 - 틀린그림찾기
+     */
+
+    FINDING_GAME_OF_DAY_NOT_FOUND(-4000, "해당 날짜에 등록된 틀린그림찾기 게임이 존재하지 않습니다.", HttpStatus.NOT_FOUND),
+
+
+    /**
+     * 5xxx : 어드민 - 레이싱게임
+     */
 
     /**
      * 9xxx : 기타 에러
