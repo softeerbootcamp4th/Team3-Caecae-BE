@@ -9,7 +9,5 @@ import java.time.LocalDate;
 public record RegisterFindingGamePeriodResponseDto(
         LocalDate startDate,
         LocalDate endDate
-
-
 ) {
 }
