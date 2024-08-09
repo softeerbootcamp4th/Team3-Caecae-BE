@@ -1,6 +1,8 @@
 package ai.softeer.caecae.admin.api;
 
 import ai.softeer.caecae.admin.domain.dto.response.RacingGameWinnerResponseDto;
+import ai.softeer.caecae.admin.domain.dto.request.FindingGameDailyAnswerRequestDto;
+import ai.softeer.caecae.admin.domain.dto.response.FindingGameDailyAnswerResponseDto;
 import ai.softeer.caecae.admin.service.AdminService;
 import ai.softeer.caecae.findinggame.service.FindingGameService;
 import ai.softeer.caecae.global.dto.response.SuccessResponse;
@@ -42,7 +44,9 @@ public class AdminController {
      * @param req 레이싱게임 정보
      */
     @PostMapping("/racing/period")
-    public ResponseEntity<SuccessResponse<RegisterRacingGameInfoResponseDto>> registerRacingGame(@RequestBody RegisterRacingGameInfoRequestDto req) {
+    public ResponseEntity<SuccessResponse<RegisterRacingGameInfoResponseDto>> registerRacingGame(
+            @RequestBody RegisterRacingGameInfoRequestDto req
+    ) {
         RegisterRacingGameInfoResponseDto res = racingGameService.registerRacingGameInfo(req);
         return SuccessResponse.of(SuccessCode.RACING_GAME_CREATED, res);
     }
@@ -76,7 +80,20 @@ public class AdminController {
     @PostMapping("/finding/period")
     public ResponseEntity<SuccessResponse<RegisterFindingGamePeriodResponseDto>>
     registerFindingGamePeriod(@RequestBody RegisterFindingGamePeriodRequestDto req) {
-        RegisterFindingGamePeriodResponseDto res = findingGameService.registerFindingGamePeriod(req);
+        RegisterFindingGamePeriodResponseDto res = adminService.registerFindingGamePeriod(req);
         return SuccessResponse.of(SuccessCode.CREATED, res);
+    }
+
+    /**
+     * 어드민이 숨은캐스퍼찾기 날짜별 정답을 등록하는 api
+     *
+     * @param req
+     * @return
+     */
+    @PostMapping("/finding/answer")
+    public ResponseEntity<SuccessResponse<FindingGameDailyAnswerResponseDto>>
+    saveFindingGameDailyInfo(@RequestBody FindingGameDailyAnswerRequestDto req) {
+        FindingGameDailyAnswerResponseDto res = adminService.saveFindingGameDailyAnswer(req);
+        return SuccessResponse.of(SuccessCode.OK, res);
     }
 }

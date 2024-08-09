@@ -41,6 +41,7 @@ public class RacingGameInfoService {
      *
      * @param req 입력한 레이싱게임 정보
      */
+    // TODO ; AdminService로 옮기기
     public RegisterRacingGameInfoResponseDto registerRacingGameInfo(RegisterRacingGameInfoRequestDto req) {
         RacingGameInfo racingGameInfo = RacingGameInfo.builder()
                 .startTime(req.startTime())

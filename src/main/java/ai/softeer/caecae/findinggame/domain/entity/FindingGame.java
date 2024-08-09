@@ -39,4 +39,14 @@ public class FindingGame extends BaseEntity {
         this.endTime = endTime;
         return this;
     }
+
+    // 숨은 캐스퍼찾기 기간, 기타 정보 업데이트
+    public FindingGame updateFindingGamePeriod(LocalDateTime startTime, LocalDateTime endTime,
+                                               int numberOfWinners, AnswerType answerType) {
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.numberOfWinners = numberOfWinners;
+        this.answerType = answerType;
+        return this;
+    }
 }
