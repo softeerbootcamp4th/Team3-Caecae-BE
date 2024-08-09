@@ -90,6 +90,7 @@ public class AdminService {
      * @param req
      * @return
      */
+    @Transactional
     public FindingGameDailyAnswerResponseDto saveFindingGameDailyAnswer
     (FindingGameDailyAnswerRequestDto req) {
 
