@@ -1,8 +1,9 @@
 package ai.softeer.caecae.admin.api;
 
+import ai.softeer.caecae.admin.domain.dto.request.FindingGameDailyAnswerRequestDto;
 import ai.softeer.caecae.admin.domain.dto.response.DrawResponseDto;
+import ai.softeer.caecae.admin.domain.dto.response.FindingGameDailyAnswerResponseDto;
 import ai.softeer.caecae.admin.service.AdminService;
-import ai.softeer.caecae.findinggame.service.FindingGameService;
 import ai.softeer.caecae.global.dto.response.SuccessResponse;
 import ai.softeer.caecae.global.enums.SuccessCode;
 import ai.softeer.caecae.racinggame.domain.dto.request.RegisterFindingGamePeriodRequestDto;
@@ -23,7 +24,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AdminController {
     private final RacingGameInfoService racingGameService;
-    private final FindingGameService findingGameService;
     private final AdminService adminService;
 
     /**
@@ -62,7 +62,20 @@ public class AdminController {
     @PostMapping("/finding/period")
     public ResponseEntity<SuccessResponse<RegisterFindingGamePeriodResponseDto>>
     registerFindingGamePeriod(@RequestBody RegisterFindingGamePeriodRequestDto req) {
-        RegisterFindingGamePeriodResponseDto res = findingGameService.registerFindingGamePeriod(req);
+        RegisterFindingGamePeriodResponseDto res = adminService.registerFindingGamePeriod(req);
         return SuccessResponse.of(SuccessCode.CREATED, res);
+    }
+
+    /**
+     * 어드민이 숨은캐스퍼찾기 날짜별 정답을 등록하는 api
+     *
+     * @param req
+     * @return
+     */
+    @PostMapping("/finding/answer")
+    public ResponseEntity<SuccessResponse<FindingGameDailyAnswerResponseDto>>
+    saveFindingGameDailyInfo(@RequestBody FindingGameDailyAnswerRequestDto req) {
+        FindingGameDailyAnswerResponseDto res = adminService.saveFindingGameDailyAnswer(req);
+        return SuccessResponse.of(SuccessCode.OK, res);
     }
 }
