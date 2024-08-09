@@ -2,10 +2,13 @@ package ai.softeer.caecae.admin.api;
 
 import ai.softeer.caecae.admin.domain.dto.response.RacingGameWinnerResponseDto;
 import ai.softeer.caecae.admin.service.AdminService;
+import ai.softeer.caecae.findinggame.service.FindingGameService;
 import ai.softeer.caecae.global.dto.response.SuccessResponse;
 import ai.softeer.caecae.global.enums.SuccessCode;
+import ai.softeer.caecae.racinggame.domain.dto.request.RegisterFindingGamePeriodRequestDto;
 import ai.softeer.caecae.racinggame.domain.dto.request.RegisterRacingGameInfoRequestDto;
 import ai.softeer.caecae.racinggame.domain.dto.response.RacingGameInfoResponseDto;
+import ai.softeer.caecae.racinggame.domain.dto.response.RegisterFindingGamePeriodResponseDto;
 import ai.softeer.caecae.racinggame.domain.dto.response.RegisterRacingGameInfoResponseDto;
 import ai.softeer.caecae.racinggame.service.RacingGameInfoService;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AdminController {
     private final RacingGameInfoService racingGameService;
+    private final FindingGameService findingGameService;
     private final AdminService adminService;
 
     /**
@@ -61,5 +65,18 @@ public class AdminController {
     @GetMapping("/racing/winners")
     public ResponseEntity<SuccessResponse<List<RacingGameWinnerResponseDto>>> getRacingGameWinner() {
         return SuccessResponse.of(SuccessCode.OK, adminService.getRacingGameWinner());
+    }
+
+    /**
+     * 어드민이 숨은캐스퍼찾기 게임 기간을 등록하는 api
+     *
+     * @param req 게임 시작 날짜
+     * @return 등록된 게임 시작 날짜, 종료 날짜(+6일)
+     */
+    @PostMapping("/finding/period")
+    public ResponseEntity<SuccessResponse<RegisterFindingGamePeriodResponseDto>>
+    registerFindingGamePeriod(@RequestBody RegisterFindingGamePeriodRequestDto req) {
+        RegisterFindingGamePeriodResponseDto res = findingGameService.registerFindingGamePeriod(req);
+        return SuccessResponse.of(SuccessCode.CREATED, res);
     }
 }
