@@ -124,9 +124,7 @@ public class AdminService {
         FindingGame findingGame = findingGameDbRepository
                 // FindingGame 테이블의 1~7번째 열에 데이터가 들어간다고 가정하고, dayOfEvent 를 id로 활용하여 조회함
                 // 좋은 방식은 아닌 것 같아서, 추후 어떻게 할지 논의 하면 좋겠음.
-                .findById(req.dayOfEvent()).orElseThrow(
-                        () -> new AdminException(ErrorCode.FINDING_GAME_OF_DAY_NOT_FOUND)
-                );
+                .findById(req.dayOfEvent()).orElseThrow(() -> new AdminException(ErrorCode.FINDING_GAME_OF_DAY_NOT_FOUND));
 
         // fingingGame의 시작시간, 종료시간, 당첨자수, 정답타입 새로운 정보로 업데이트
         findingGame.updateFindingGamePeriod(
