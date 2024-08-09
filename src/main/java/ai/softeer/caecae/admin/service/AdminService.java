@@ -1,10 +1,9 @@
 package ai.softeer.caecae.admin.service;
 
-import ai.softeer.caecae.admin.domain.dto.response.RacingGameWinnerResponseDto;
 import ai.softeer.caecae.admin.domain.dto.FindingGameAnswerDto;
 import ai.softeer.caecae.admin.domain.dto.request.FindingGameDailyAnswerRequestDto;
-import ai.softeer.caecae.admin.domain.dto.response.DrawResponseDto;
 import ai.softeer.caecae.admin.domain.dto.response.FindingGameDailyAnswerResponseDto;
+import ai.softeer.caecae.admin.domain.dto.response.RacingGameWinnerResponseDto;
 import ai.softeer.caecae.admin.domain.exception.AdminException;
 import ai.softeer.caecae.findinggame.domain.entity.FindingGame;
 import ai.softeer.caecae.findinggame.domain.entity.FindingGameAnswer;
@@ -17,20 +16,17 @@ import ai.softeer.caecae.racinggame.domain.dto.response.RegisterFindingGamePerio
 import ai.softeer.caecae.racinggame.domain.entity.RacingGameParticipant;
 import ai.softeer.caecae.racinggame.domain.entity.RacingGameWinner;
 import ai.softeer.caecae.racinggame.repository.RacingGameInfoRepository;
-import ai.softeer.caecae.racinggame.repository.RacingGameParticipantRepository;
 import ai.softeer.caecae.racinggame.repository.RacingGameRepository;
 import ai.softeer.caecae.racinggame.repository.RacingGameWinnerRepository;
 import ai.softeer.caecae.user.domain.entity.User;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -75,15 +71,15 @@ public class AdminService {
                 RacingGameParticipant p = participants.get(cur);
                 User user = p.getUser();
                 racingGameWinnerResponseDtoList.add(RacingGameWinnerResponseDto.builder()
-                                .ranking(ranking)
-                                .phone(user.getPhone())
-                                .distance(p.getDistance())
-                                .selection(p.getSelection())
-                                .build());
+                        .ranking(ranking)
+                        .phone(user.getPhone())
+                        .distance(p.getDistance())
+                        .selection(p.getSelection())
+                        .build());
                 winners.add(RacingGameWinner.builder()
-                                .userId(p.getUserId())
-                                .ranking(ranking)
-                                .build());
+                        .userId(p.getUserId())
+                        .ranking(ranking)
+                        .build());
                 arr[cur] = -1;
                 ranking++;
             }
@@ -104,11 +100,11 @@ public class AdminService {
         for (RacingGameWinner winner : winners) {
             RacingGameParticipant p = racingGameRepository.findById(winner.getUserId()).get();
             WinnerResponseDtoList.add(RacingGameWinnerResponseDto.builder()
-                            .ranking(winner.getRanking())
-                            .phone(winner.getUser().getPhone())
-                            .distance(p.getDistance())
-                            .selection(p.getSelection())
-                            .build());
+                    .ranking(winner.getRanking())
+                    .phone(winner.getUser().getPhone())
+                    .distance(p.getDistance())
+                    .selection(p.getSelection())
+                    .build());
         }
         return WinnerResponseDtoList;
     }
@@ -119,7 +115,6 @@ public class AdminService {
      * @param req
      * @return
      */
-    @Transactional
     public FindingGameDailyAnswerResponseDto saveFindingGameDailyAnswer
     (FindingGameDailyAnswerRequestDto req) {
 
